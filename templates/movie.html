@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+{% for key,value in data.items %}
+    <table border="1">
+        <tr>{{ key }}</tr>
+        {% for keys in value %}
+            <td>{{ keys.0.way_name }}</td>
+            <td><a href="{{ keys.0.address }}"  target="_blank">点我下载</a></td>
+        {% endfor %}
+    </table>
+{% endfor %}
+
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!-- myechartsite/djoncharts/templates/djoncharts/pyecharts.html -->
+<html>
+{% load static %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Proudly presented by PycCharts</title>
+
+    <script src="{% static 'djoncharts/js/echarts.min.js' %}"></script>
+    <script src="https://echarts.baidu.com/dist/echarts-gl.js"></script>
+</head>
+
+<body>
+  {{myechart|safe}}
+</body>
+
+</html>
