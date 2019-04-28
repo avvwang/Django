@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+
+
 <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+<script src={% static 'datatables/js/jquery.dataTables.min.js' %}></script>
+<link href="http://www.datatables.club/assets/bootstrap/2.3.2/css/bootstrap-responsive.min.css" rel="stylesheet">
 {#<script src='http://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js'></script>#}
 <head>
     <meta charset="UTF-8">
@@ -23,55 +29,51 @@
                 <th>Salary</th>
             </tr>
         </thead>
-        <tfoot>
-            <tr>
-                <th>Name</th>
-                <th>Position</th>
-                <th>Office</th>
-                <th>Age</th>
-                <th>Start date</th>
-                <th>Salary</th>
-            </tr>
-        </tfoot>
+{#        <tfoot>#}
+{#            <tr>#}
+{#                <th>Name</th>#}
+{#                <th>Position</th>#}
+{#                <th>Office</th>#}
+{#                <th>Age</th>#}
+{#                <th>Start date</th>#}
+{#                <th>Salary</th>#}
+{#            </tr>#}
+{#        </tfoot>#}
 
-        <tbody>
-            <tr>
-                <td>Jonas Alexander</td>
-                <td>Developer</td>
-                <td>San Francisco</td>
-                <td>30</td>
-                <td>2010/07/14</td>
-                <td>$86,500</td>
-            </tr>
-            <tr>
-                <td>Shad Decker</td>
-                <td>Regional Director</td>
-                <td>Edinburgh</td>
-                <td>51</td>
-                <td>2008/11/13</td>
-                <td>$183,000</td>
-            </tr>
-        </tbody>
+{#        <tbody>#}
+{#            <tr>#}
+{#                <td>Jonas Alexander</td>#}
+{#                <td>Developer</td>#}
+{#                <td>San Francisco</td>#}
+{#                <td>30</td>#}
+{#                <td>2010/07/14</td>#}
+{#                <td>$86,500</td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td>Shad Decker</td>#}
+{#                <td>Regional Director</td>#}
+{#                <td>Edinburgh</td>#}
+{#                <td>51</td>#}
+{#                <td>2008/11/13</td>#}
+{#                <td>$183,000</td>#}
+{#            </tr>#}
+{#        </tbody>#}
     </table>
 
-<button id='tf' type="submit">提交表单</button>
+{#<button id='tf' type="submit">提交表单</button>#}
 
 
 <body>
-{#<script src="http://malsup.github.io/jquery.form.js"></script>#}
-<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
-<script src={% static 'datatables/js/jquery.dataTables.min.js' %}></script>
-<script src={% static 'datatables/js/dataTables.bootstrap.min.js' %}></script>
 
 <script>
 $(document).ready(function() {
     $('#example').dataTable( {
+        "ajax": "/static/arrays.txt",
         "initComplete": function () {
             var api = this.api();
             api.$('td').click( function () {
                     console.log( api.row( this ).data() );
-
-{#                api.search( this.innerHTML ).draw();#}
+                api.search( this.innerHTML ).draw();
             } );
         }
     } );

@@ -103,7 +103,7 @@ def Check(request):
         data[key[0]] = key[1]
         if num % 3==0:
             test(data)
-            print(data)
+            # print(data)
     return JsonResponse({"code":111})
 
 
