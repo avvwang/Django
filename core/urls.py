@@ -13,7 +13,7 @@ urlpatterns = [
    url(r'vivo', views.vivo, name='vivo'),
    url(r'rr', views.rr, name='rr'),
    url(r'datatable', views.data_table),
-   url(r'Check', views.Check),
-   url(r'add', views.add),
-   url(r'index', views.index),
+   url(r'Check$', views.Check),
+   url(r'add$', views.add),
+   url(r'index$', views.index),
 ]

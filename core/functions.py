@@ -84,11 +84,11 @@ def uploadfile(ftp, remotepath, localpath):
     ftp.set_debuglevel(0)
     ftp.close()
 def test(data):
-    print(data)
+    # print(data)
     try:
         name = data.get("key")
         id = data.get("key1")
-        print(name, id)
+        # print(name, id)
     except Exception as f:
         print('NO')
 

@@ -97,13 +97,11 @@ def Check(request):
     print(request.body)
     # row=request.POST.get("row-1-age")
     str1=str(request.body.decode())
-    count=0
     data = {}
-    for i in str1.split("&"):
+    for num,i in enumerate(str1.split("&"),start=1):
         key=str(i).split("=")
-        count=count+1
         data[key[0]] = key[1]
-        if count % 3==0:
+        if num % 3==0:
             test(data)
             print(data)
     return JsonResponse({"code":111})
