@@ -16,4 +16,7 @@ urlpatterns = [
    url(r'Check$', views.Check),
    url(r'add$', views.add),
    url(r'index$', views.index),
+   url(r'details$', views.detail),
+   url(r'model', views.model),
+   url(r'movie', views.movies),
 ]

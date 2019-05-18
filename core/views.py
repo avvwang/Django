@@ -27,25 +27,13 @@ def vivo(request):
             vivo_dict[videoid]={"title":title,"likecount":likecount,"commentcount":commentcount,"playCount":playCount,"download_url":download_url}
             # print (title,downloads)
     sort=sorted(vivo_dict.items(),key=lambda x:x[1][random.choice(choice)],reverse=True)[:5]
-    # print(type(sort),sort)
-    # zip_sort=dict(zip(sort[0],sort[1]))
-    # for index,data in enumerate(sort):
-    #     print (data[0],data[1])
     k={data[0]:data[1] for index,data in enumerate(sort)}
     for values in k.values():
-        # pass
-        # 868451338
         download_video(values["download_url"],values["title"])
     print(k)
-    # for key,values in sort[0].items():
-    #     download(values["downloads"],values["title"])
-    # return JsonResponse({"code":"successe"})
-    # for value in k.values():
-    #     download_video(value["download_url"],value["title"])
 
     return JsonResponse(k)
 
-    # return render(request,"index.html",context={"data":k})
 
 
 
@@ -79,7 +67,6 @@ def rr(request):
     num=request.GET.get("num")
     rr=renre_nmovi("11057",num)
     index=rr.rr_request()
-    # return JsonResponse(index)
     print(index)
     if index:
         return render(request,template_name="movie.html",context={"data":index})
@@ -115,3 +102,25 @@ def add(request):
 
 def index(request):
     return render(request,"core_templates/index.html")
+
+def detail(request):
+    return render(request,"core_templates/data_table.html")
+
+def model(request):
+    return render(request,"core_templates/module.html")
+from core.models import movie
+import pandas as pd
+def movies(request):
+    num=10
+    dataploy=eval(request.body)
+    print(dataploy)
+    draw=dataploy.get("draw")
+    length =dataploy.get("length")
+    search =dataploy.get("search")
+    start =dataploy.get("start")
+    if len(search)>=1:
+        data = movie.objects.filter(title__icontains=search).values_list()
+        print(data)
+    else:
+        data=movie.objects.filter(id__range=[start,start+length]).values_list()
+    return HttpResponse(json.dumps({"data":list(data)},ensure_ascii=False))

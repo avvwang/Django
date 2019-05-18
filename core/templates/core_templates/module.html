@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src={% static "heliang.js" %}></script>
+</head>
+<body>
+<table id="example" class="display" cellspacing="0" width="100%">
+    <thead>
+        <th>id</th>
+        <th>title</th>
+        <th>like</th>
+        <th>recommend</th>
+        <th>comment</th>
+    </thead>
+{#    <tbody>#}
+{#    <tr>#}
+{#        <td>data</td>#}
+{#    </tr>#}
+{#        </tbody>#}
+</table>
+</body>
+</html>
