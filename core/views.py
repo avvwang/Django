@@ -7,6 +7,8 @@ import random
 import json
 from django.views.decorators.cache import cache_page, cache_control, never_cache
 from .functions import test
+from .tasks import add_test
+
 
 def vivo(request):
     imei=request.GET.get("name")
@@ -111,16 +113,30 @@ def model(request):
 from core.models import movie
 import pandas as pd
 def movies(request):
-    num=10
-    dataploy=eval(request.body)
-    print(dataploy)
-    draw=dataploy.get("draw")
-    length =dataploy.get("length")
-    search =dataploy.get("search")
-    start =dataploy.get("start")
+    draw=request.POST.get("draw")
+    page =request.POST.get("page")
+    limit =request.POST.get("limit")
+    start =request.POST.get("start")
+    search=request.POST["search"]
+    # print(start,limit,page)
+    # print(page*limit)
+    if int(start)==0:
+        start=1
+    elif int(start)>=2:
+        start=int(start)+1
+    print(start,limit,search)
+
     if len(search)>=1:
-        data = movie.objects.filter(title__icontains=search).values_list()
-        print(data)
+        data=movie.objects.filter(title__icontains=search).values()[int(start):int(start)+int(limit)]
+        count = data.count()
     else:
-        data=movie.objects.filter(id__range=[start,start+length]).values_list()
-    return HttpResponse(json.dumps({"data":list(data)},ensure_ascii=False))
+
+        data=movie.objects.values()[int(start):int(start)+int(limit)]
+        count = movie.objects.count()
+    return HttpResponse(json.dumps({"data":list(data),"totals":count},ensure_ascii=False))
+
+
+def celery_test(request):
+    # print(add_test.delay(1,2))
+    print("helo")
+    return render(request,"core_templates/celery.html")

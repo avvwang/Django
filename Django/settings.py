@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'djoncharts',
+    'djcelery',
+    "django_crontab",
+    # 'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -116,6 +119,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+7
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -137,3 +141,29 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (os.path.join(BASE_DIR,  'templates'),)
+
+
+#############################
+# celery 配置信息 start
+#############################
+import djcelery
+djcelery.setup_loader()
+BROKER_URL = 'redis://127.0.0.1:6379/1'
+CELERY_IMPORTS = ('core.tasks')
+CELERY_TIMEZONE = 'Asia/Shanghai'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+from celery.schedules import crontab
+from celery.schedules import timedelta
+
+CELERYBEAT_SCHEDULE = {    #定时器策略
+   #定时任务一：　每隔30s运行一次
+   u'测试定时器1': {
+       "task": "core.tasks.add_test",
+       #"schedule": crontab(minute='*/2'),  # or 'schedule':   timedelta(seconds=3),
+       "schedule":timedelta(seconds=30),
+       "args": (),
+   },
+}
+#############################
+# celery 配置信息 end
+#############################

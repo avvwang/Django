@@ -19,4 +19,5 @@ urlpatterns = [
    url(r'details$', views.detail),
    url(r'model', views.model),
    url(r'movie', views.movies),
+   url(r'celery_test', views.celery_test),
 ]
